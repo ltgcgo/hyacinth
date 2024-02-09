@@ -1,7 +1,10 @@
-# Graceful Lattice
-🌼 Tiny JavaScript web file server. A replacement of `http.server` in Python 3.
+# Hyacinth
+💨 Build web projects with speed.
 
-Documentation available at [kb.ltgc.cc](https://kb.ltgc.cc/graceful-lattice/).
+Documentation available at [kb.ltgc.cc](https://kb.ltgc.cc/hyacinth/).
 
 ## Key features
-* Just use it!
+* No BS configurations, just build.
+* Uses `esbuild` and `lightningcss` under the hood.
+* Runtime agnostic, no support towards any single runtime.
+* Directory structured.
