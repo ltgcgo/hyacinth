@@ -23,6 +23,9 @@ pkgs.mkShell {
 		zopfli
 		brotli
 		# Development dependencies
+		deno
+		lightningcss
+		esbuild
 	];
 	GIT_EDITOR = "${pkgs.nano}/bin/nano";
 	shellHook = ''
