@@ -1,20 +1,10 @@
-# shx
-📜 Bash/PDKSH shell action executor. Never `npx` again.
+# Hyacinth
+💨 Build web projects with speed.
 
-Documentation available at [kb.ltgc.cc](https://kb.ltgc.cc/shx/).
+Documentation available at [kb.ltgc.cc](https://kb.ltgc.cc/hyacinth/).
 
-## Supported shells
-* AT&T `ksh`
-  * May not work properly due to buggy `IFS` implementation.
-* Bash
-* `zsh`
-
-## Unsupported shells
-* `ash`
-* BusyBox `sh`
-* `dash`
-* `loksh` (as of version 7.4)
-* `oksh` (as of version 7.3)
-* OpenBSD `ksh`
-* `yash` (as of version 2.55)
-* `mksh` (when array slicing is supported)
+## Key features
+* No BS configurations, just build.
+* Uses `esbuild` and `lightningcss` under the hood.
+* Runtime agnostic, no support towards any single runtime.
+* Directory structured.
