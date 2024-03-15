@@ -3,5 +3,6 @@
 .zsh_history
 build
 *.map
+.docker_name
 dist/*.js
 dist/*.css
