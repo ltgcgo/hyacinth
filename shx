@@ -57,6 +57,6 @@ elif [ -e "sh/$1.sh" ] ; then
 elif [ -e "sh/$1" ] ; then
 	bash "sh/$1" "${args[@]:1}"
 else
-	echo -e "\033[1;31mError\033[0m: No action found as \"$1\". Command: shx ${args[@]:1}".
+	echo -e "\033[1;31mError\033[0m: No action found as \"$1\". Command: shx ${args[@]}".
 fi
 exit
