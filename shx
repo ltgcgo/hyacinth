@@ -7,7 +7,7 @@ if [[ "${NO_SHELL_CHECK}" == "" ]] &&
 	[[ "${CURRENT_SHELL}" != *"bash" ]] &&
 	[[ "${CURRENT_SHELL}" != *"ksh" ]] &&
 	[[ "${CURRENT_SHELL}" != *"zsh" ]]; then
-	echo "Please run with bash instead of ${CURRENT_SHELL}."
+	echo -e "\033[1;31mError\033[0m: Please run with bash instead of ${CURRENT_SHELL}."
 	exit
 fi
 # Define runner
@@ -37,7 +37,7 @@ while [ "$fsPointer" -ge 0 ]; do
 	fsPointer=$(($fsPointer - 1))
 done
 if [[ "$fsPath" == "/" ]] ; then
-	echo "No project directory is found. Quitting."
+	echo -e "\033[1;31mError\033[0m: No project directory is found. Quitting."
 	exit 1
 fi
 IFS="$OIFS"
