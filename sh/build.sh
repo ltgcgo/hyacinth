@@ -24,6 +24,17 @@ if [ -d "./css" ]; then
 else
 	echo "No CSS targets available."
 fi
+echo "Now building HTML."
+if [ -d "./web" ]; then
+	ls -1 web | while IFS= read -r dir ; do
+		if [ -e "web/${dir}/index.htm" ] ; then
+			echo "Building HTML target \"${dir}\"..."
+			shx page $dir > /dev/null
+		fi
+	done
+else
+	echo "No HTML targets available."
+fi
 echo "Now building JS."
 substRules='s/{var /{let /g;s/}var /}let /g;s/;var /;let /g;s/(var /(let /g;s/var /"use strict";let /'
 if [ -d "./src" ]; then

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Build JS files
 #rm -rv dist/${1:default}*
 inject=" "
 prepend=" "

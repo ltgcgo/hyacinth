@@ -1,4 +1,5 @@
 #!/bin/bash
+# Build CSS files
 if [ -f "$(which lightningcss)" ]; then
 	lightningcss --bundle ${2:---minify --sourcemap} $3 "css/${1}/index.css" -o "dist/${1}.css"
 elif [ "$(shx esbuild 2>&1 >/dev/null;echo $?)" == "0" ]; then
