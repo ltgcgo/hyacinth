@@ -11,6 +11,9 @@ rm -r dist/*.mjs 2> /dev/null
 #esbuild --bundle src/index.js --outfile=dist/index.js --minify --sourcemap
 #esbuild --bundle src/index.js --target=es6 --outfile=dist/index.es6.js --minify --sourcemap
 echo "Now building CSS."
+if [ ! -f "$(which lightningcss)" ]; then
+	echo -e "\033[1;33mWarning\033[0m: LightningCSS is not available. May yield unexpected results."
+fi
 if [ -d "./css" ]; then
 	ls -1 css | while IFS= read -r dir ; do
 		if [ -e "css/${dir}/index.css" ] ; then
