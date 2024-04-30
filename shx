@@ -2,6 +2,7 @@
 # Check the current shell
 export SHX_VERSION=0.2.2
 export INVOKE_DIR=$PWD
+export USER_DIR=~
 export CURRENT_SHELL=$(ps h -p $$ -o args='' | cut -f1 -d' ')
 if [[ "${NO_SHELL_CHECK}" == "" ]] &&
 	[[ "${CURRENT_SHELL}" != *"bash" ]] &&

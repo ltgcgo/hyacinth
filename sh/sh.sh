@@ -2,10 +2,17 @@
 # shx Standard Utility
 useNix=${1:-env}
 ociRun=
+gpgSrc=
 if [ -f "nix/${useNix}.nix" ]; then
 	echo "Preparing Nix shell with: ${useNix}.nix..."
 else
 	echo "${useNix}.nix does not exist."
+fi
+if [ -d "$USER_DIR/.gnupg" ]; then
+	gpgSrc="$gpgSrc -v $USER_DIR/.gnupg:/root/.shadowSrc/.gnupg:ro"
+fi
+if [ -d "$USER_DIR/.gitconfig" ]; then
+	gpgSrc="$gpgSrc -v $USER_DIR/.gitconfig:/root/.shadowSrc/.gitconfig:ro"
 fi
 if [ -e "$(which nix-shell)" ]; then
 	echo "Starting Nix shell..."
@@ -26,7 +33,7 @@ if [ "$ociRun" != "" ]; then
 	fi
 	ociName="$(cat nix/zsh/.docker_name)"
 	echo "Starting container..."
-	$ociRun run -it -d --name "$ociName" -v "$SOURCE_DIR":/data docker.io/nixpkgs/nix sleep infinity 2>/dev/null
+	$ociRun run -it -d --name "$ociName" -v "$SOURCE_DIR":/data $gpgSrc docker.io/nixpkgs/nix sleep infinity 2>/dev/null
 	$ociRun start "$ociName" 2>/dev/null
 	$ociRun exec -it "$ociName" bash /data/nix/zsh/boot.sh "$useNix"
 	echo "Quitting container..."

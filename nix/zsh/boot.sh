@@ -1,5 +1,11 @@
 #!/bin/bash
 # Entrypoint for Docker containers
+cd /root/
+if [ -d ".shadowSrc" ]; then
+	echo "Shadowing the host configs..."
+	cp --no-preserve mode,ownership -r .shadowSrc/* ./
+	chmod 700 .gnupg
+fi
 cd /data/
 echo "Preparing Nix environment..."
 export NIX_PATH=nixpkgs=channel:nixos-unstable
