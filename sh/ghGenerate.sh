@@ -3,8 +3,6 @@ COMPRESS_CRIT="\.(bin|bm|bmp|conf|css|csv|htm|html|ico|js|json|kar|list|lst|map|
 
 sudo apt install -y zopfli tree
 
-tree -ifl .
-
 echo "$(date +"%s")" > build-time.txt
 cp -Lrv ghp ghp-gz
 cp -Lrv ghp ghp-br
