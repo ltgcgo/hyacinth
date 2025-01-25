@@ -11,5 +11,13 @@ dist/*.mts
 dist/*.htm
 dist/*.html
 
+ghp-gz
+ghp-br
+pages-build.tar
+pages-build.tar.gz
+pages-build-gz.tar
+pages-build-br.tar
+build-time.txt
+
 !dist/*.mjs.map
 !dist/*.d.mts
