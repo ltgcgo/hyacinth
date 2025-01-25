@@ -8,6 +8,8 @@ dist/*.js
 dist/*.css
 dist/*.ts
 dist/*.mts
+dist/*.htm
+dist/*.html
 
 !dist/*.mjs.map
 !dist/*.d.mts
