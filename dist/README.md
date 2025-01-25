@@ -1,0 +1,2 @@
+# Distributables
+This folder contains all of the build artifacts from the building pipelines. You may want to only publish contents of `@/dist` to registries, in which you can modify this file to contain some primitive documentation.
