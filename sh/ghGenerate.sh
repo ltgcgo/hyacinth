@@ -5,28 +5,48 @@ COMPRESS_CRIT="\.(ass|atom|bin|bm|bmp|conf|css|csv|htm|html|ico|js|json|kar|list
 sudo apt install -y tree
 
 echo "$(date +"%s")" > build-time.txt
-cp -Lrv ghp ghp-gz
-cp -Lrv ghp ghp-br
-cp -Lrv ghp ghp-base
-cd ghp
-tar cvhf ../pages-build.tar *
+cp -Lr ghp ghp-raw
+cd ghp-raw
+printf "" > ../fileHashes.tsv
+tree -ifl | while IFS= read -r file; do
+	if [ -f "$file" ]; then
+		# Is a file
+		fileHash="$(sha256sum "${file}" | cut -d' ' -f1)"
+		findResult="$(grep -F "${fileHash}	" ../fileHashes.tsv | cut -d '	' -f2)"
+		if [ "$findResult" != "" ] ; then
+			pathDiffRaw="$(realpath -Lsm --relative-to="${file}" "${findResult}")"
+			pathDiff="${pathDiffRaw/\.\.\//}"
+			echo "Deduplicated: ${file} -> ${pathDiff} (${findResult})"
+			rm "${file}"
+			ln -s "${pathDiff}" "${file}"
+		else
+			echo "${fileHash}	$(realpath -s "${file}")" >> ../fileHashes.tsv
+		fi
+	fi
+done
+tar cvf ../pages-build.tar *
 cd ..
 #zopfli --i1 -v pages-build.tar
 gzip -9v pages-build.tar
 rm -v pages-build.tar
+rm -r ghp-raw
+cp -Lr ghp ghp-base
 cd ghp-base
+printf "" > ../fileHashes.tsv
 tree -ifl | while IFS= read -r file; do
 	if [ -f "$file" ]; then
 		# Is a file
 		if [ "$(echo "$file" | grep -E "$COMPRESS_CRIT")" != "" ]; then
-			rm -v "$file"
+			rm "$file"
 		else
 			echo "File \"${file}\" is preserved."
 		fi
 	fi
 done
-tar cvf ../pages-build-base.tar *
+tar cf ../pages-build-base.tar *
 cd ..
+rm -rv ghp-base
+cp -Lr ghp ghp-gz
 cd ghp-gz
 printf "" > ../fileHashes.tsv
 tree -ifl | while IFS= read -r file; do
@@ -53,8 +73,10 @@ tree -ifl | while IFS= read -r file; do
 	fi
 done
 #cat ../fileHashes.tsv
-tar cvf ../pages-build-gz.tar *
+tar cf ../pages-build-gz.tar *
 cd ..
+rm -rv ghp-gz
+cp -Lr ghp ghp-br
 cd ghp-br
 printf "" > ../fileHashes.tsv
 tree -ifl | while IFS= read -r file; do
@@ -81,6 +103,7 @@ tree -ifl | while IFS= read -r file; do
 	fi
 done
 #cat ../fileHashes.tsv
-tar cvf ../pages-build-br.tar *
+tar cf ../pages-build-br.tar *
 cd ..
+rm -rv ghp-br
 exit
