@@ -7,13 +7,14 @@ on:
     branches:
       - "main"
     #paths:
+      #- "./css/*"
       #- "./dist/*"
       #- "./ghp/*"
       #- "./libs/*"
       #- "./nix/*"
       #- "./sh/*"
       #- "./src/*"
-      #- "./test/*"
+      #- "./web/*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -59,6 +60,7 @@ jobs:
         run: "bash sh/ghGenerate.sh"
       - name: "Build deployable static pages artifact (long-term)"
         if: ${{ endsWith(github.repository, '-stable') }}
+        run: "bash sh/ghGenerate.sh 1"
       - name: "Rewrite release"
         uses: ncipollo/release-action@v1
         env:
