@@ -1,4 +1,0 @@
-#!/bin/bash
-args=( "$@" )
-deno run --allow-env --allow-net --allow-read --allow-write --allow-run deno/esbuild/mod.js ${args[@]}
-exit

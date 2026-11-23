@@ -1,14 +1,24 @@
 #!/bin/bash
-cd build
-#cd ..
-case "$1" in
+#cd test
+cd ..
+runner=
+if [ "$1" == "" ]; then
+	if [ -f "$(which caddy)" ]; then
+		runner=caddy
+	elif [ -f "$(which python3)"; then
+		runner=python
+	fi
+else
+	runner=$1
+fi
+case "$runner" in
+	"caddy")
+		caddy run -c "${SOURCE_DIR}/nix/dev.Caddyfile"
+		;;
 	"deno")
 		denoServe -p 8010
 		;;
-	"denoNext")
-		LISTEN_PORT=8010 LISTEN_ADDR=127.0.0.1 GRACE_JAIL=1 deno run --allow-read --allow-run ../deno/grace/grace.mjs
-		;;
-	*)
+	"py" | "python" | *)
 		python3 -m http.server 8010
 		;;
 esac
